@@ -5,8 +5,6 @@ import org.mockito.Mockito;
 
 public class UserRegistrationTest {
 
-
-
     @Test
     void Phase1_WhenValidatedRegisterCorrectly() {
 
@@ -89,5 +87,135 @@ public class UserRegistrationTest {
         ur.register(date, pw, cs);
 
         Mockito.verify(cs, Mockito.never()).register(date, pw);
+    }
+
+    /**
+     * Fase 3: CredentialStore implementado
+     */
+    @Test
+    void Phase3_credentialStoreImplementedCorrectRegistration(){
+        Date date = Mockito.mock(Date.class);
+        PasswordString pw = Mockito.mock(PasswordString.class);
+        CredentialStore cs = Mockito.spy(CredentialStoreSet.class);
+
+        UserRegistration urSpy = new UserRegistration();
+
+        Mockito.when(date.validate()).thenReturn(true);
+        Mockito.when(pw.validate()).thenReturn(true);
+
+        urSpy.register(date, pw, cs);
+
+        //verificamos que se ha llamado al register de CredentialStore
+        Mockito.verify(cs).register(date, pw);
+    }
+
+    @Test
+    void Phase3_credentialStoreImplementedDateIncorrectRegistration(){
+        Date date = Mockito.mock(Date.class);
+        PasswordString pw = Mockito.mock(PasswordString.class);
+        CredentialStore cs = Mockito.spy(CredentialStoreSet.class);
+
+        UserRegistration urSpy = new UserRegistration();
+
+        Mockito.when(date.validate()).thenReturn(false);
+        Mockito.when(pw.validate()).thenReturn(true);
+
+        urSpy.register(date, pw, cs);
+
+        //verificamos que se ha llamado al register de CredentialStore
+        Mockito.verify(cs, Mockito.never()).register(date, pw);
+    }
+    @Test
+    void Phase3_credentialStoreImplementedPasswordIncorrectRegistration(){
+        Date date = Mockito.mock(Date.class);
+        PasswordString pw = Mockito.mock(PasswordString.class);
+        CredentialStore cs = Mockito.spy(CredentialStoreSet.class);
+
+        UserRegistration urSpy = new UserRegistration();
+
+        Mockito.when(date.validate()).thenReturn(true);
+        Mockito.when(pw.validate()).thenReturn(false);
+
+        urSpy.register(date, pw, cs);
+
+        //verificamos que se ha llamado al register de CredentialStore
+        Mockito.verify(cs, Mockito.never()).register(date, pw);
+    }
+
+    @Test
+    void Phase3_credentialStoreImplementedAlreadyRegisteredIncorrectRegistration(){
+        Date date = Mockito.mock(Date.class);
+        PasswordString pw = Mockito.mock(PasswordString.class);
+        CredentialStore cs = Mockito.spy(CredentialStoreSet.class);
+
+        UserRegistration urSpy = new UserRegistration();
+
+        Mockito.when(date.validate()).thenReturn(true);
+        Mockito.when(pw.validate()).thenReturn(true);
+        urSpy.register(date, pw, cs);
+        urSpy.register(date, pw, cs);
+
+        //verificamos que se ha llamado al register de CredentialStore
+        Mockito.verify(cs, Mockito.times(1)).register(date, pw);
+    }
+
+    /**
+     * Fase 4: Everything implementado
+     */
+    @Test
+    void Phase4_everythingImplementedCorrectRegistration() {
+        Date date = new Date(25,2,1990);
+        PasswordString pw = new PasswordString("1234.1234.");
+        CredentialStore cs = Mockito.spy(CredentialStoreSet.class);
+
+        UserRegistration urSpy = new UserRegistration();
+
+        urSpy.register(date, pw, cs);
+
+        //verificamos que se ha llamado al register de CredentialStore
+        Mockito.verify(cs, Mockito.times(1)).register(date, pw);
+    }
+
+    @Test
+    void Phase4_everythingImplementedDateIncorrectRegistration() {
+        Date date = new Date(30,2,1990);
+        PasswordString pw = new PasswordString("1234.1234.");
+        CredentialStore cs = Mockito.spy(CredentialStoreSet.class);
+
+        UserRegistration urSpy = new UserRegistration();
+
+        urSpy.register(date, pw, cs);
+
+        //verificamos que se ha llamado al register de CredentialStore
+        Mockito.verify(cs, Mockito.never()).register(date, pw);
+    }
+
+    @Test
+    void Phase4_everythingImplementedPasswordIncorrectRegistration() {
+        Date date = new Date(10,2,1990);
+        PasswordString pw = new PasswordString("12345678");
+        CredentialStore cs = Mockito.spy(CredentialStoreSet.class);
+
+        UserRegistration urSpy = new UserRegistration();
+
+        urSpy.register(date, pw, cs);
+
+        //verificamos que se ha llamado al register de CredentialStore
+        Mockito.verify(cs, Mockito.never()).register(date, pw);
+    }
+
+    @Test
+    void Phase4_everythingImplementedAlreadyRegisteredIncorrectRegistration() {
+        Date date = new Date(10,2,1990);
+        PasswordString pw = new PasswordString("1234.1234.");
+        CredentialStore cs = Mockito.spy(CredentialStoreSet.class);
+
+        UserRegistration urSpy = new UserRegistration();
+
+        urSpy.register(date, pw, cs);
+        urSpy.register(date, pw, cs);
+
+        //verificamos que se ha llamado al register de CredentialStore
+        Mockito.verify(cs, Mockito.times(1)).register(date, pw);
     }
 }

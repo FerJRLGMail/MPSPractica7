@@ -5,13 +5,12 @@ import org.mps.authentication.CredentialValidator.ValidationStatus;
 public class UserRegistration {
 
 
-  public ValidationStatus validate(Date birthDate, PasswordString passwordString,
+  protected ValidationStatus validate(Date birthDate, PasswordString passwordString,
                                    CredentialStore credentialStore) {
 
     var credentialValidator = new CredentialValidator(birthDate, passwordString, credentialStore);
-    ValidationStatus status = credentialValidator.validate();
 
-    return status;
+    return credentialValidator.validate();
   }
 
   public void register(Date birthDate, PasswordString passwordString,

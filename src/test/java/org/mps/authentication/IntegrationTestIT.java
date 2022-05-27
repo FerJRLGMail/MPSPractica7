@@ -98,12 +98,12 @@ public class IntegrationTestIT {
         PasswordString pw = Mockito.mock(PasswordString.class);
         CredentialStore cs = Mockito.spy(CredentialStoreSet.class);
 
-        UserRegistration urSpy = new UserRegistration();
+        UserRegistration ur = new UserRegistration();
 
         Mockito.when(date.validate()).thenReturn(true);
         Mockito.when(pw.validate()).thenReturn(true);
 
-        urSpy.register(date, pw, cs);
+        ur.register(date, pw, cs);
 
         //verificamos que se ha llamado al register de CredentialStore
         Mockito.verify(cs).register(date, pw);
@@ -115,12 +115,12 @@ public class IntegrationTestIT {
         PasswordString pw = Mockito.mock(PasswordString.class);
         CredentialStore cs = Mockito.spy(CredentialStoreSet.class);
 
-        UserRegistration urSpy = new UserRegistration();
+        UserRegistration ur = new UserRegistration();
 
         Mockito.when(date.validate()).thenReturn(false);
         Mockito.when(pw.validate()).thenReturn(true);
 
-        urSpy.register(date, pw, cs);
+        ur.register(date, pw, cs);
 
         //verificamos que se ha llamado al register de CredentialStore
         Mockito.verify(cs, Mockito.never()).register(date, pw);
@@ -131,12 +131,12 @@ public class IntegrationTestIT {
         PasswordString pw = Mockito.mock(PasswordString.class);
         CredentialStore cs = Mockito.spy(CredentialStoreSet.class);
 
-        UserRegistration urSpy = new UserRegistration();
+        UserRegistration ur = new UserRegistration();
 
         Mockito.when(date.validate()).thenReturn(true);
         Mockito.when(pw.validate()).thenReturn(false);
 
-        urSpy.register(date, pw, cs);
+        ur.register(date, pw, cs);
 
         //verificamos que se ha llamado al register de CredentialStore
         Mockito.verify(cs, Mockito.never()).register(date, pw);
@@ -148,12 +148,12 @@ public class IntegrationTestIT {
         PasswordString pw = Mockito.mock(PasswordString.class);
         CredentialStore cs = Mockito.spy(CredentialStoreSet.class);
 
-        UserRegistration urSpy = new UserRegistration();
+        UserRegistration ur = new UserRegistration();
 
         Mockito.when(date.validate()).thenReturn(true);
         Mockito.when(pw.validate()).thenReturn(true);
-        urSpy.register(date, pw, cs);
-        urSpy.register(date, pw, cs);
+        ur.register(date, pw, cs);
+        ur.register(date, pw, cs);
 
         //verificamos que se ha llamado al register de CredentialStore
         Mockito.verify(cs, Mockito.times(1)).register(date, pw);
@@ -168,9 +168,9 @@ public class IntegrationTestIT {
         PasswordString pw = new PasswordString("1234.1234.");
         CredentialStore cs = Mockito.spy(CredentialStoreSet.class);
 
-        UserRegistration urSpy = new UserRegistration();
+        UserRegistration ur = new UserRegistration();
 
-        urSpy.register(date, pw, cs);
+        ur.register(date, pw, cs);
 
         //verificamos que se ha llamado al register de CredentialStore
         Mockito.verify(cs, Mockito.times(1)).register(date, pw);
@@ -182,9 +182,9 @@ public class IntegrationTestIT {
         PasswordString pw = new PasswordString("1234.1234.");
         CredentialStore cs = Mockito.spy(CredentialStoreSet.class);
 
-        UserRegistration urSpy = new UserRegistration();
+        UserRegistration ur = new UserRegistration();
 
-        urSpy.register(date, pw, cs);
+        ur.register(date, pw, cs);
 
         //verificamos que se ha llamado al register de CredentialStore
         Mockito.verify(cs, Mockito.never()).register(date, pw);
@@ -196,9 +196,9 @@ public class IntegrationTestIT {
         PasswordString pw = new PasswordString("12345678");
         CredentialStore cs = Mockito.spy(CredentialStoreSet.class);
 
-        UserRegistration urSpy = new UserRegistration();
+        UserRegistration ur = new UserRegistration();
 
-        urSpy.register(date, pw, cs);
+        ur.register(date, pw, cs);
 
         //verificamos que se ha llamado al register de CredentialStore
         Mockito.verify(cs, Mockito.never()).register(date, pw);
@@ -212,8 +212,8 @@ public class IntegrationTestIT {
 
         UserRegistration urSpy = new UserRegistration();
 
-        urSpy.register(date, pw, cs);
-        urSpy.register(date, pw, cs);
+        ur.register(date, pw, cs);
+        ur.register(date, pw, cs);
 
         //verificamos que se ha llamado al register de CredentialStore
         Mockito.verify(cs, Mockito.times(1)).register(date, pw);

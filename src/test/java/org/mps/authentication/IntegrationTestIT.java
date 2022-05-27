@@ -210,7 +210,7 @@ public class IntegrationTestIT {
         PasswordString pw = new PasswordString("1234.1234.");
         CredentialStore cs = Mockito.spy(CredentialStoreSet.class);
 
-        UserRegistration urSpy = new UserRegistration();
+        UserRegistration ur = new UserRegistration();
 
         ur.register(date, pw, cs);
         ur.register(date, pw, cs);
